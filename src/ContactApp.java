@@ -1,5 +1,4 @@
 package src;
-import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
@@ -12,6 +11,7 @@ public class ContactApp {
     public static void main(String[] args) {
 // to run all the apps together
         runApp();
+
     }
 public static void runApp(){
         boolean running = true;
@@ -21,9 +21,9 @@ public static void runApp(){
 //        Function for call which options
             int Answer = scanner.nextInt();
             scanner.nextLine();
-//                            case 1 -> AllContacts();
-//                            case 2 -> addContacts();
-//                            case 3 -> searchContact();
+                            case 1 -> AllContacts();
+                            case 2 -> addContacts();
+                            case 3 -> searchContact();
                             case 4 -> deleteContact();
             if (Answer == 5) {
                 running = false;
@@ -40,13 +40,44 @@ public static void runApp(){
     }
 
     if(running) System.out.println("Have a nice day!");
+
 }
- public static void deleteContact(){
+
+    public static void deleteContact(){
         contact toRemove = null;
-     System.out.println("Enter a name of contact to delete.");
-     String isName = scanner.nextLine();
-     for (contact c : Contacts){
-         toRemove = c;
-     }
- }
+        System.out.println("Enter a name of contact to delete.");
+        String isName = scanner.nextLine();
+        for (contact c : Contacts){
+            toRemove = c;
+        }
+    }
+
+    public static void searchContact(){
+        boolean isSuccessful = false;
+        System.out.println("Enter name of contact to search");
+        String theName = scanner.nextLine();
+        for (contact c : Contacts) {
+            if (c.getName().equalsIgnoreCase(theName)) {
+//                System.out.printf();
+                isSuccessful = true;
+                break;
+            }
+        }
+        if (!isSuccessful) System.out.println("Invalid name");
+    }
+    public static void displayContacts(){
+        if (Contacts.size() >= 1)contactFormatter();
+        else System.out.println("No Contacts found....");
+    }
+
+    private static void validateFile() {
+        if (!Files.exists(fileInsert)) {
+            try {
+                Files.createFile(fileInsert);
+            } catch (Exception e) {
+                System.out.println(e);
+            }
+        }
+    }
+
 }
