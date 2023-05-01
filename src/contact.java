@@ -9,9 +9,9 @@ public class contact {
         this.number = number;
     }
 public String getName(){
-        return this.name;
+        return name;
 }
 public String getNumber(){
-        return this.number;
+        return number;
 }
 }
