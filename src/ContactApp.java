@@ -38,6 +38,6 @@ public static void runApp(){
         }
     }
 
-    if(!running) System.out.println("Have a nice day!");
+    if(running) System.out.println("Have a nice day!");
 }
 }
