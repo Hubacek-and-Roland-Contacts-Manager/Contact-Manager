@@ -1,4 +1,5 @@
 package src;
+import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
 
@@ -79,5 +80,33 @@ public static void runApp(){
             }
         }
     }
+    public static void loadContacts() {
+        Contacts.clear();
+        List<String> newList = new ArrayList<>();
+        try {
+            newList = Files.readAllLines(fileInsert);
+        } catch (IOException iox) {
+            iox.printStackTrace();
+        }
+        if (newList.size() >= 1) {
+            for (String s : newList) {
+                String[] arr = s.split("◈");
+                contact c = new contact(arr[0], arr[1]);
+                Contacts.add(c);
+            }
+        }
+    }
 
+    public static void saveContacts() {
+        List<String> contactString = new ArrayList<>();
+        for (contact c : Contacts) {
+            String s = c.getName() + "◈" + c.getNumber();
+            contactString.add(s);
+        }
+        try {
+            Files.write(fileInsert, contactString);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
 }
