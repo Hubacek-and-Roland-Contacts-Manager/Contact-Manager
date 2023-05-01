@@ -18,19 +18,20 @@ public static void runApp(){
 
         while (running){
             System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4 or 5):\n");
-
-            int ui = scanner.nextInt();
+//        Function for call which options
+            int Answer = scanner.nextInt();
             scanner.nextLine();
-            //                case 1 -> AllContacts();
-            //                case 2 -> addContacts();
-            //                case 3 -> searchContact();
-            //                case 4 -> deleteContact();
-            if (ui == 5) {
+//                            case 1 -> AllContacts();
+//                            case 2 -> addContacts();
+//                            case 3 -> searchContact();
+                            case 4 -> deleteContact();
+            if (Answer == 5) {
                 running = false;
             } else {
                 System.out.println("Please enter a valid menu option");
             }
         }
+//        Add a continue if user is done or not
     if (running) {
         System.out.println("%continue...?");
         if (scanner.nextLine().equalsIgnoreCase("n")){
@@ -40,4 +41,12 @@ public static void runApp(){
 
     if(running) System.out.println("Have a nice day!");
 }
+ public static void deleteContact(){
+        contact toRemove = null;
+     System.out.println("Enter a name of contact to delete.");
+     String isName = scanner.nextLine();
+     for (contact c : Contacts){
+         toRemove = c;
+     }
+ }
 }
