@@ -1,8 +1,8 @@
 package src;
 
 public class contact {
-    private String name;
-    private String number;
+    private final String name;
+    private final String number;
 
     public contact(String name, String number){
         this.name = name;
