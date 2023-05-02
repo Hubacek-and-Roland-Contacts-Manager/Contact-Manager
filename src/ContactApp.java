@@ -109,5 +109,57 @@ public static void runApp(){
             System.out.println(e);
         }
     }
+    public static void addContacts(){
+    String outName = null;
+    String outNumber = null;
+    while (outName == null){
+        System.out.println("Enter a Name.....");
+        String uName = scanner.nextLine();
+        if (!validateName(uName)) {
+            System.out.println("Please enter a valid name");
+        } else {
+            outName = uName;
+        }
+    }
+        while (outNumber == null){
+            System.out.println("Enter Number...");
+            String uNumber = scanner.nextLine();
+            if (!validatePhoneNumber(uNumber)) {
+                System.out.println("Please enter a valid phone number");
+            }else{
+                outNumber = uNumber;
+            }
+        }
+        boolean passable = true;
+        for(Contact c : contacts){
+            if(c.getName().equalsIgnoreCase(outName)){
+                passable = false;
+                System.out.println("Name already exists in contacts! please try again!");
+            }
+            if(c.getNumber().equals(outNumber)){
+                passable = false;
+                System.out.println("Number already exists in contacts! please try again!");
+            }
+        }
+        if(passable) {
+            Contact c = new Contact(outName, outNumber);
+            System.out.printf("%sContact for %s added!%s%n", , outName, RESET);
+            contacts.add(c);
+            saveContacts();
+        }
+    }
+
+    public static void contactFormatter() {
+        System.out.println("┌───────────────────┬───────────────────┐");
+        System.out.printf("│%-19s│%-19s│%n", "Name","Phone Number");
+        System.out.println("┝━━━━━━━━━━━━━━━━━━━┿━━━━━━━━━━━━━━━━━━━┥");
+        for (contact c : Contacts) {
+            System.out.println("│%s%-19s%s│%s%-19s%s│%n");
+        }
+        System.out.println("└───────────────────┴───────────────────┘");
+    }
+
+
 }
-//test
+    }
+}
