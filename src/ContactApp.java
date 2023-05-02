@@ -12,6 +12,8 @@ public class ContactApp {
     public static void main(String[] args) {
 // to run all the apps together
         runApp();
+        validateFile();
+        loadContacts();
 
     }
 public static void runApp(){
@@ -42,7 +44,21 @@ public static void runApp(){
 
     if(running) System.out.println("Have a nice day!");
 
+
 }
+
+    public  static String formatNumber(String num) {
+        String fnumber = num;
+        if (num.length() == 7) {
+            fnumber = num.replaceFirst("(\\d{3})(\\d+)", "$1-$2");
+        } else if (num.length() == 10) {
+            fnumber = num.replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+        } else if (num.length() > 10) {
+            fnumber = "+" + num.substring(0, num.length() - 10) + " " + num.substring(num.length() - 10).replaceFirst("(\\d{3})(\\d{3})(\\d+)", "($1) $2-$3");
+        }
+        return fnumber;
+    }
+
 
     public static void deleteContact(){
         contact toRemove = null;
@@ -52,6 +68,7 @@ public static void runApp(){
             toRemove = c;
         }
     }
+
 
     public static void searchContact(){
         boolean isSuccessful = false;
@@ -109,6 +126,27 @@ public static void runApp(){
             System.out.println(e);
         }
     }
+    public static boolean validatePhoneNumber(String str)
+    {
+        if(str.length() < 7 || str.length() > 13)
+            return false;
+        for (int i = 0; i < str.length(); i++) {
+            if (!Character.isDigit(str.charAt(i)))
+                return false;
+        }
+        return true;
+    }
+    public static boolean validateName(String str)
+    {
+        if (str.length() == 0 || str.length() > 20)
+            return false;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '◈')
+                return false;
+        }
+        return true;
+    }
     public static void addContacts(){
     String outName = null;
     String outNumber = null;
@@ -131,7 +169,7 @@ public static void runApp(){
             }
         }
         boolean passable = true;
-        for(Contact c : contacts){
+        for(contact c : Contacts){
             if(c.getName().equalsIgnoreCase(outName)){
                 passable = false;
                 System.out.println("Name already exists in contacts! please try again!");
@@ -142,9 +180,9 @@ public static void runApp(){
             }
         }
         if(passable) {
-            Contact c = new Contact(outName, outNumber);
-            System.out.printf("%sContact for %s added!%s%n", , outName, RESET);
-            contacts.add(c);
+            contact c = new contact(outName, outNumber);
+            System.out.printf("%sContact for %s added!%s%n", outName);
+            Contacts.add(c);
             saveContacts();
         }
     }
@@ -161,5 +199,4 @@ public static void runApp(){
 
 
 }
-    }
-}
+
