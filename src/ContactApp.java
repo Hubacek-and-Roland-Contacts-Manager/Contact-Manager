@@ -58,7 +58,7 @@ public class ContactApp {
     }
 
 
-
+//to format the phone numbers
     public  static String formatNumber(String num) {
         String fnumber = num;
         if (num.length() == 7) {
@@ -71,7 +71,7 @@ public class ContactApp {
         return fnumber;
     }
 
-
+// the delete the contact class
     public static void deleteContact(){
         contact toRemove = null;
         System.out.println("Enter a name of contact to delete.");
@@ -90,7 +90,7 @@ public class ContactApp {
         }
 
     }
-
+//the search class to print out
     public static void searchContact() {
         boolean isSuccessful = false;
         Scanner scanner = new Scanner(System.in);
@@ -107,6 +107,7 @@ public class ContactApp {
             System.out.println("Invalid name");
         }
     }
+//     to display all contacts
     public static void AllContacts(){
         if (Contacts.size() >= 4)contactFormatter();
         else System.out.println("No Contacts found....");
@@ -121,6 +122,7 @@ public class ContactApp {
             }
         }
     }
+//    to load the contacts
     public static void loadContacts() {
         Contacts.clear();
         List<String> newList = new ArrayList<>();
@@ -137,7 +139,7 @@ public class ContactApp {
             }
         }
     }
-
+// to save the information with the .txt
     public static void saveContacts() {
         List<String> contactString = new ArrayList<>();
         for (contact c : Contacts) {
@@ -150,6 +152,7 @@ public class ContactApp {
             System.out.println();
         }
     }
+//     to make sure that the phone has the correct numbers
     public static boolean validatePhoneNumber(String str)
     {
         if(str.length() < 7 || str.length() > 13)
@@ -171,6 +174,7 @@ public class ContactApp {
         }
         return true;
     }
+//    to add a contact class
     public static void addContacts(){
     String outName = null;
     String outNumber = null;
@@ -210,7 +214,7 @@ public class ContactApp {
             saveContacts();
         }
     }
-
+// for when to load all contacts form
     public static void contactFormatter() {
         System.out.println("┌───────────────────┬───────────────────┐");
         System.out.printf("│%-19s│%-19s│%n", "Name","Phone Number");
