@@ -1,7 +1,10 @@
 package src;
 import java.io.IOException;
-import java.nio.file.*;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class ContactApp {
 //    Calling from the .txt file
@@ -17,14 +20,19 @@ public class ContactApp {
 
     }
     public static void runApp() {
+//        the information of when the app starts
         boolean running = true;
 
         while (running) {
             System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n5. Exit.\nEnter an option (1, 2, 3, 4 or 5):\n");
 
-            // Add the switch statement here
-            int Answer = scanner.nextInt();
-            scanner.nextLine();
+            int Answer = -1;
+            if (scanner.hasNextInt()) {
+                Answer = scanner.nextInt();
+                scanner.nextLine();
+            } else {
+                scanner.nextLine();
+            }
             switch (Answer) {
                 case 1 -> AllContacts();
                 case 2 -> addContacts();
@@ -38,7 +46,8 @@ public class ContactApp {
                     }
 
                 }
-            }if (running) {
+            }
+            if (running) {
                 System.out.println("continue...? (y/n)");
                 if (scanner.nextLine().equalsIgnoreCase("n")) {
                     running = false;
@@ -47,6 +56,7 @@ public class ContactApp {
             if (!running) System.out.println("Have a nice day!");
         }
     }
+
 
 
     public  static String formatNumber(String num) {
@@ -81,21 +91,24 @@ public class ContactApp {
 
     }
 
-    public static void searchContact(){
+    public static void searchContact() {
         boolean isSuccessful = false;
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter name of contact to search");
         String theName = scanner.nextLine();
         for (contact c : Contacts) {
             if (c.getName().equalsIgnoreCase(theName)) {
-//                System.out.printf();
+                System.out.printf("%s %s\n", c.getName(), formatNumber(c.getNumber()));
                 isSuccessful = true;
                 break;
             }
         }
-        if (!isSuccessful) System.out.println("Invalid name");
+        if (!isSuccessful) {
+            System.out.println("Invalid name");
+        }
     }
     public static void AllContacts(){
-        if (Contacts.size() >= 1)contactFormatter();
+        if (Contacts.size() >= 4)contactFormatter();
         else System.out.println("No Contacts found....");
     }
 
@@ -104,7 +117,7 @@ public class ContactApp {
             try {
                 Files.createFile(fileInsert);
             } catch (Exception e) {
-                System.out.println(e);
+                System.out.println();
             }
         }
     }
@@ -116,7 +129,7 @@ public class ContactApp {
         } catch (IOException iox) {
             iox.printStackTrace();
         }
-        if (newList.size() >= 1) {
+        if (newList.size() >= 4) {
             for (String s : newList) {
                 String[] arr = s.split("◈");
                 contact c = new contact(arr[0], arr[1]);
@@ -134,7 +147,7 @@ public class ContactApp {
         try {
             Files.write(fileInsert, contactString);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println();
         }
     }
     public static boolean validatePhoneNumber(String str)
